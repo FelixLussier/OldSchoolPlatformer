@@ -80,7 +80,7 @@ public class MouvementDuJoueur : MonoBehaviour
                 jumpKeyIsPressed = false;
             }
         }
-      s  if (downKeyIsPressed == true)
+        if (downKeyIsPressed == true)
         {
             rb.velocity = Vector3.down * forceDeSaut;
             
