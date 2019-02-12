@@ -23,10 +23,15 @@ public class MouvementDuJoueur : MonoBehaviour
     public Transform groundCheck;
     public float checkRadius;
     public LayerMask whatIsGround;
+
     public bool isWalled;
     public Transform wallCheckLeft;
     public Transform wallCheckRight;
     public LayerMask whatIsWall;
+
+    //public bool isTop;
+   // public Transform topCheck;
+    //public LayerMask whatIsTop;
 
 
     void Start()
@@ -43,6 +48,8 @@ public class MouvementDuJoueur : MonoBehaviour
         {
             isWalled = Physics2D.OverlapCircle(wallCheckLeft.position, checkRadius, whatIsWall);
             isWalled = Physics2D.OverlapCircle(wallCheckRight.position, checkRadius, whatIsWall);
+
+            //isTop = Physics2D.OverlapCircle(topCheck.position, checkRadius, whatIsTop);
         }
 
         if (Input.GetKeyDown(KeyCode.UpArrow) && isGrounded == true)
@@ -80,7 +87,7 @@ public class MouvementDuJoueur : MonoBehaviour
                 jumpKeyIsPressed = false;
             }
         }
-      s  if (downKeyIsPressed == true)
+        if (downKeyIsPressed == true)
         {
             rb.velocity = Vector3.down * forceDeSaut;
             
