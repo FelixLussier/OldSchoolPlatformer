@@ -13,13 +13,13 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Ground
+  - Wall
+  - Top
+  - GroundWall
+  - GroundTop
+  - WallTop
+  - GroundWallTop
   - 
   - 
   - 
