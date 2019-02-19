@@ -28,7 +28,6 @@ public class MouvementDuJoueur : MonoBehaviour
     public Transform wallCheckRight;
     public LayerMask whatIsWall;
 
-
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
