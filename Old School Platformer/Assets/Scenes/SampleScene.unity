@@ -1276,7 +1276,7 @@ MonoBehaviour:
   masseJoueur: 10
   "gravit\xE9": 0
   vitesse: 20
-  forceDeSaut: 10
+  forceDeSaut: 30
   isGrounded: 0
   groundCheck: {fileID: 1528385115}
   checkRadius: 0.5

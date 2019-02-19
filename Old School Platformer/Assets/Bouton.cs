@@ -7,6 +7,13 @@ public class Bouton : MonoBehaviour
 {
     public void changerScene()
     {
-        SceneManager.LoadScene("SettingsScene");
+        if(gameObject.name == "OuvrirSettings")
+        {
+            SceneManager.LoadScene("SettingsScene");
+        }
+        else if (gameObject.name == "QuitterSettings")
+        {
+            SceneManager.LoadScene("MainUI");
+        }
     }
 }
