@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class FSMState 
 {
     private readonly string name;
@@ -30,14 +31,28 @@ public class FSMState
     }
 
 
-    /*public FSMState GetTransition(string eventId)
+    public FSMState GetTransition(string eventId)
     {
-       
-    }*/
+        if (transitionMap.ContainsKey(eventId))
+        {
+            return transitionMap[eventId];
+        }
+
+        return null;
+    }
 
     public void AddAction(FSMAction action)
     {
+        if(actions.Contains(action))
+        {
+            Debug.LogWarning("This state already contains " + action);
+        }
+        if(action.GetOwner() != this)
+        {
+            Debug.LogWarning("This state doesn't own " + action);
+        }
 
+        actions.Add(action);
     }
 
     public IEnumerable<FSMAction> GetActions()
@@ -45,8 +60,8 @@ public class FSMState
         return actions;
     }
 
-    public void SendEvent(string eventid)
+    public void SendEvent(string eventId)
     {
-
+        this.owner.SendEvent(eventId);
     }
 }

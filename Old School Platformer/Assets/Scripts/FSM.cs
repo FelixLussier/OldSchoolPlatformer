@@ -104,9 +104,41 @@ public class FSM
         });
     }
 
-    public void SendEvent()
+    public void SendEvent(string eventId)
     {
+        FSMState transitionState = ResolveTransition(eventId);
 
+        if (transitionState == null)
+            Debug.LogWarning("The current state has no transition for event " + eventId);
+        else
+            ChangeToState(transitionState);
     }
+
+
+    private FSMState ResolveTransition(string eventId)
+    {
+        FSMState transitionState = this.currentState.GetTransition(eventId);
+
+        if (transitionState == null)
+            return null;
+        else
+            return transitionState;
+    }
+
+
+    public FSMState AddState(string name)
+    {
+        if(stateMap.ContainsKey(name))
+        {
+            Debug.LogWarning("The FSM already contains " + name);
+            return null;
+        }
+
+
+        FSMState newState = new FSMState(name, this);
+        stateMap[name] = newState;
+        return newState;
+    }
+
 
 }
