@@ -18,7 +18,7 @@ public class MouvementDuJoueur : MonoBehaviour
     private Rigidbody2D myRB;
     public LayerMask playerMask;
 
-    private bool mouvementDroite = true;
+    private bool flipTime = false;
 
     //Verifie les platformes
     public bool isGrounded;
@@ -26,10 +26,10 @@ public class MouvementDuJoueur : MonoBehaviour
     public float checkRadius;
     public LayerMask whatIsGround;
 
-    public bool isWalled;
+    /*public bool isWalled;
     public Transform wallCheckLeft;
     public Transform wallCheckRight;
-    public LayerMask whatIsWall;
+    public LayerMask whatIsWall;*/
 
 
     //public bool isTop;
@@ -67,14 +67,7 @@ public class MouvementDuJoueur : MonoBehaviour
             downKeyIsPressed = true;
         }*/
 
-        if (mouvementDroite == false && mouvementInput > 0)
-        {
-            Flip();
-        }
-        else if (mouvementDroite == true && mouvementInput < 0)
-        {
-            Flip();
-        }
+        
     }
 
     private void FixedUpdate()
@@ -83,21 +76,23 @@ public class MouvementDuJoueur : MonoBehaviour
 
         myRB.rotation = 0;
 
-        Move(Input.GetAxisRaw("Horizontal"));
+        mouvementInput = Input.GetAxisRaw("Horizontal");
+
+        Move(mouvementInput);
+
+        if (flipTime == true && mouvementInput > 0)
+        {
+            Flip();
+        }
+        else if (flipTime == true && mouvementInput < 0)
+        {
+            Flip();
+        }
 
         if (Input.GetKeyDown(KeyCode.UpArrow))
             Jump();
 
-        /*if (jumpKeyIsPressed == true)
-        {
-            rb.velocity = (Vector3.up * forceDeSaut);
-
-            if (isGrounded == false)
-            {
-                jumpKeyIsPressed = false;
-            }
-        }
-        if (downKeyIsPressed == true)
+       /* if (downKeyIsPressed == true)
         {
             rb.velocity = Vector3.down * forceDeSaut;
             
@@ -115,6 +110,7 @@ public class MouvementDuJoueur : MonoBehaviour
         Vector2 mouvementVelocity = myRB.velocity;
         mouvementVelocity.x = horizonalInput * vitesse;
         myRB.velocity = mouvementVelocity;
+        flipTime = true;
     }
 
     void Jump()
@@ -131,8 +127,9 @@ public class MouvementDuJoueur : MonoBehaviour
     void Flip()
     {
         //Le joueur se mets a bouger vers la gauche
-        mouvementDroite = !mouvementDroite;
-        Vector3 Scaler = transform.localScale;
+
+        flipTime = false;
+        Vector3 Scaler = this.transform.localScale;
         Scaler.x *= -1;
         transform.localScale = Scaler;
     }
