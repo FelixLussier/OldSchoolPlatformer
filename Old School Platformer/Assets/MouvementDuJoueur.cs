@@ -19,6 +19,7 @@ public class MouvementDuJoueur : MonoBehaviour
     public LayerMask playerMask;
 
     private bool flipTime = false;
+    private bool regardeDroite = true;
 
     //Verifie les platformes
     public bool isGrounded;
@@ -47,27 +48,29 @@ public class MouvementDuJoueur : MonoBehaviour
 
     private void Update()
     {
-       /* isGrounded = Physics2D.OverlapCircle(groundCheck.position, checkRadius, whatIsGround);
+        /* isGrounded = Physics2D.OverlapCircle(groundCheck.position, checkRadius, whatIsGround);
 
-        if (isGrounded == false)
-        {
-            isWalled = Physics2D.OverlapCircle(wallCheckLeft.position, checkRadius, whatIsWall);
-            isWalled = Physics2D.OverlapCircle(wallCheckRight.position, checkRadius, whatIsWall);
+         if (isGrounded == false)
+         {
+             isWalled = Physics2D.OverlapCircle(wallCheckLeft.position, checkRadius, whatIsWall);
+             isWalled = Physics2D.OverlapCircle(wallCheckRight.position, checkRadius, whatIsWall);
 
-            //isTop = Physics2D.OverlapCircle(topCheck.position, checkRadius, whatIsTop);
-        }
+             //isTop = Physics2D.OverlapCircle(topCheck.position, checkRadius, whatIsTop);
+         }
 
-        if (Input.GetKeyDown(KeyCode.UpArrow) && isGrounded == true)
-        {
-            jumpKeyIsPressed = true;
-        }
+         if (Input.GetKeyDown(KeyCode.UpArrow) && isGrounded == true)
+         {
+             jumpKeyIsPressed = true;
+         }
 
-        if (Input.GetKeyDown(KeyCode.DownArrow) && isGrounded == false)
-        {
-            downKeyIsPressed = true;
-        }*/
+         if (Input.GetKeyDown(KeyCode.DownArrow) && isGrounded == false)
+         {
+             downKeyIsPressed = true;
+         }*/
+        if (Input.GetKeyDown(KeyCode.LeftArrow)) flipTime = true;
+        if (Input.GetKeyDown(KeyCode.RightArrow)) flipTime = true;
+        if (Input.GetKeyDown(KeyCode.UpArrow)) Jump();
 
-        
     }
 
     private void FixedUpdate()
@@ -80,17 +83,18 @@ public class MouvementDuJoueur : MonoBehaviour
 
         Move(mouvementInput);
 
-        if (flipTime == true && mouvementInput > 0)
+        if (flipTime == true && mouvementInput > 0 && regardeDroite == false)
         {
             Flip();
+            regardeDroite = true;
         }
-        else if (flipTime == true && mouvementInput < 0)
+        else if (flipTime == true && mouvementInput < 0 && regardeDroite == true)
         {
             Flip();
+            regardeDroite = false;
         }
 
-        if (Input.GetKeyDown(KeyCode.UpArrow))
-            Jump();
+        
 
        /* if (downKeyIsPressed == true)
         {
@@ -110,7 +114,7 @@ public class MouvementDuJoueur : MonoBehaviour
         Vector2 mouvementVelocity = myRB.velocity;
         mouvementVelocity.x = horizonalInput * vitesse;
         myRB.velocity = mouvementVelocity;
-        flipTime = true;
+       
     }
 
     void Jump()
