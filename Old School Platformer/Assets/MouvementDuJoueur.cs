@@ -8,12 +8,9 @@ public class MouvementDuJoueur : MonoBehaviour
 
     public float masseJoueur;
     public float gravité;
-    public float vitesse;
+    public float m_vitesse;
     public float forceDeSaut;
     private float mouvementInput;
-
-    private bool jumpKeyIsPressed;
-    private bool downKeyIsPressed;
 
     private Rigidbody2D myRB;
     public LayerMask playerMask;
@@ -27,61 +24,79 @@ public class MouvementDuJoueur : MonoBehaviour
     public float checkRadius;
     public LayerMask whatIsGround;
 
+    private BoxCollider2D crouchColliderDisabler;
+
+    public UnityEvent onLandEvent;
+    public class boolEvent : UnityEvent<bool> { }
+    public boolEvent onCrouchEvent;
+    private bool isCrouching = false;
+
     /*public bool isWalled;
     public Transform wallCheckLeft;
     public Transform wallCheckRight;
     public LayerMask whatIsWall;*/
 
-
-    //public bool isTop;
-    // public Transform topCheck;
-    //public LayerMask whatIsTop;
+    public bool isTop;
+    public Transform topCheck;
+    private bool wasTop = false;
 
 
     void Start()
     {
+        m_vitesse = 100f;
         myRB = this.GetComponent<Rigidbody2D>();
+        crouchColliderDisabler = this.GetComponent<BoxCollider2D>();
         myTrans = this.transform;
         groundCheck = GameObject.Find(this.name + "/GroundCheck").transform;
+
+        if (onLandEvent == null)
+            onLandEvent = new UnityEvent();
+        if (onCrouchEvent == null)
+            onCrouchEvent = new boolEvent();
+        
     }
 
 
     private void Update()
-    {
-        /* isGrounded = Physics2D.OverlapCircle(groundCheck.position, checkRadius, whatIsGround);
-
-         if (isGrounded == false)
-         {
-             isWalled = Physics2D.OverlapCircle(wallCheckLeft.position, checkRadius, whatIsWall);
-             isWalled = Physics2D.OverlapCircle(wallCheckRight.position, checkRadius, whatIsWall);
-
-             //isTop = Physics2D.OverlapCircle(topCheck.position, checkRadius, whatIsTop);
-         }
-
-         if (Input.GetKeyDown(KeyCode.UpArrow) && isGrounded == true)
-         {
-             jumpKeyIsPressed = true;
-         }
-
-         if (Input.GetKeyDown(KeyCode.DownArrow) && isGrounded == false)
-         {
-             downKeyIsPressed = true;
-         }*/
+    {       
         if (Input.GetKeyDown(KeyCode.LeftArrow)) flipTime = true;
         if (Input.GetKeyDown(KeyCode.RightArrow)) flipTime = true;
         if (Input.GetKeyDown(KeyCode.UpArrow)) Jump();
 
+
+        if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            isCrouching = true;
+            Crouch(isCrouching);
+        }
+        if (Input.GetKeyUp(KeyCode.DownArrow))
+        {
+            if (isTop) wasTop = true;
+
+            if (!isTop)
+            {
+                isCrouching = false;
+                Crouch(isCrouching);
+            }
+        }
+        if (wasTop && !isTop)
+        {
+            isCrouching = false;
+            Crouch(isCrouching);
+            wasTop = false;
+        }
     }
 
     private void FixedUpdate()
     {
         isGrounded = Physics2D.Linecast(myTrans.position, groundCheck.position, playerMask);
+        isTop = Physics2D.Linecast(myTrans.position, topCheck.position, playerMask);
 
         myRB.rotation = 0;
 
         mouvementInput = Input.GetAxisRaw("Horizontal");
 
-        Move(mouvementInput);
+        Move(mouvementInput, m_vitesse);
 
         if (flipTime == true && mouvementInput > 0 && regardeDroite == false)
         {
@@ -93,23 +108,27 @@ public class MouvementDuJoueur : MonoBehaviour
             Flip();
             regardeDroite = false;
         }
-
-        
-
-       /* if (downKeyIsPressed == true)
-        {
-            rb.velocity = Vector3.down * forceDeSaut;
-            
-
-            if (isGrounded == true)
-            {
-                downKeyIsPressed = false;
-            }
-        }*/
-
     }
 
-    void Move(float horizonalInput)
+    void Crouch(bool Crouching)
+    {
+        if(isGrounded)
+        {
+            if (Crouching)
+            {
+                crouchColliderDisabler.enabled = false;
+
+                m_vitesse = 50f;
+            }
+            else
+            {
+                crouchColliderDisabler.enabled = true;
+                m_vitesse = 100f;
+            }
+        }
+    }
+
+    void Move(float horizonalInput, float vitesse)
     {
         Vector2 mouvementVelocity = myRB.velocity;
         mouvementVelocity.x = horizonalInput * vitesse;
@@ -119,7 +138,7 @@ public class MouvementDuJoueur : MonoBehaviour
 
     void Jump()
     {
-        if (isGrounded == true)
+        if (isGrounded == true && !isCrouching)
             myRB.velocity += forceDeSaut * Vector2.up;
     }
 
