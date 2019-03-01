@@ -6,15 +6,33 @@ using UnityEngine.UI;
 
 public class BoutonMute : MonoBehaviour
 {
-    Slider sliderVolume;
+    public Slider sliderVolume;
+    public Toggle muteButton;
+    private float volume;
+    private bool wasMute = false;
 
-    private void Start()
+    private void Update()
     {
         sliderVolume = GameObject.Find("Slider").GetComponent<Slider>();
+        muteButton = GameObject.Find(this.name).GetComponent<Toggle>();
 
-        sliderVolume.value = -35;
-        AudioListener.volume = -35;
+        if(wasMute == false)
+        {
+            volume = sliderVolume.value;
+        }
 
+        if(muteButton.isOn == true)
+        {
+            sliderVolume.value = -35;
+            wasMute = true;
+        }
+
+        if(wasMute == true && muteButton.isOn == false)
+        {
+            sliderVolume.value = volume;
+            wasMute = false;
+        }
     }
+
 
 }
