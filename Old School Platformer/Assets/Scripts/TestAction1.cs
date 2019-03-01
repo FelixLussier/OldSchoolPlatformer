@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class TestAction1 : FSMAction
 {
 
@@ -12,7 +13,7 @@ public class TestAction1 : FSMAction
     private int length= 0;
     private System.Random rand = new System.Random();
     private int random;
-
+    
 
 
 
@@ -29,7 +30,7 @@ public class TestAction1 : FSMAction
         this.finishEvent = finishEvent1;
         this.cachedDuration = duration;
         
-
+        
 
     }
 
