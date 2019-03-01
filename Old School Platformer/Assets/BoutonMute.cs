@@ -13,7 +13,7 @@ public class BoutonMute : MonoBehaviour
 
     private void Update()
     {
-        sliderVolume = GameObject.Find("Slider").GetComponent<Slider>();
+        sliderVolume = GameObject.Find("sliderMaster").GetComponent<Slider>();
         muteButton = GameObject.Find(this.name).GetComponent<Toggle>();
 
         if(wasMute == false)
