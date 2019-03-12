@@ -61,8 +61,8 @@ public class MoveAction : FSMAction
 
 
         this.positionFrom = GameObject.Find("AI").transform.position;
-        transform.position = Vector3.MoveTowards(this.positionFrom, this.positionTo, 0.005f*Time.deltaTime);
-        //SetPosition(Vector3.Lerp(this.positionFrom, this.positionTo, Mathf.Clamp(polledTime / cachedDuration, 0, 1)));
+        //transform.position = Vector3.MoveTowards(this.positionFrom, this.positionTo, 0.005f*Time.deltaTime);
+        SetPosition(Vector3.Lerp(this.positionFrom, this.positionTo, Mathf.Clamp(polledTime / cachedDuration, 0, 1)));
     }
 
 
