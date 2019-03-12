@@ -6,31 +6,65 @@ using UnityEngine.UI;
 
 public class BoutonMute : MonoBehaviour
 {
-    public Slider sliderVolume;
-    public Toggle muteButton;
+    public Slider sliderVolumeMaster;
+    public Slider sliderVolumeSFX;
+    public Slider sliderVolumeMusique;
+    public Toggle muteMaster;
+    public Toggle muteSFX;
+    public Toggle muteMusic;
     private float volume;
-    private bool wasMute = false;
+    private float volumeMaster;
+    private float volumeMusic;
+    private float volumeSFX;
+    private bool wasMuteMaster = false;
+    private bool wasMuteMusic = false;
+    private bool wasMuteSFX = false;
 
     private void Update()
     {
-        sliderVolume = GameObject.Find("sliderMaster").GetComponent<Slider>();
-        muteButton = GameObject.Find(this.name).GetComponent<Toggle>();
+        sliderVolumeMaster = GameObject.Find("sliderMaster").GetComponent<Slider>();
+        sliderVolumeSFX = GameObject.Find("sliderSound").GetComponent<Slider>();
+        sliderVolumeMusique = GameObject.Find("sliderMusic").GetComponent<Slider>();
+        muteMaster = GameObject.Find("muteMaster").GetComponent<Toggle>();
+        muteMusic = GameObject.Find("muteMusic").GetComponent<Toggle>();
+        muteSFX = GameObject.Find("muteSFX").GetComponent<Toggle>();
 
-        if(wasMute == false)
+
+        if (wasMuteMaster == false)
         {
-            volume = sliderVolume.value;
+            volumeMaster = sliderVolumeMaster.value;
+            volumeMusic = sliderVolumeMusique.value;
+            volumeSFX = sliderVolumeSFX.value;
         }
 
-        if(muteButton.isOn == true)
+        if (sliderVolumeMusique.value >= volumeMaster)
         {
-            sliderVolume.value = -35;
-            wasMute = true;
+            sliderVolumeMusique.value = volumeMaster;
         }
 
-        if(wasMute == true && muteButton.isOn == false)
+        if (sliderVolumeSFX.value >= volumeMaster)
         {
-            sliderVolume.value = volume;
-            wasMute = false;
+            sliderVolumeSFX.value = volumeMaster;
+        }
+
+        if (muteMaster.isOn == true)
+        {
+            sliderVolumeMaster.value = -35;
+            wasMuteMaster = true;
+        }
+
+        if (muteMusic.isOn == true)
+        {
+            sliderVolumeMusique.value = -35;
+            wasMuteMusic = true;
+        }
+
+        if (wasMuteMaster == true && muteMaster.isOn == false)
+        {
+            sliderVolumeMaster.value = volumeMaster;
+            sliderVolumeMusique.value = volumeMusic;
+            sliderVolumeSFX.value = volumeSFX;
+            wasMuteMaster = false;
         }
     }
 

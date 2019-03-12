@@ -1615,8 +1615,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a8c0cd6163f0f54dafbaa96cf56f98b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sliderVolume: {fileID: 1894634102}
-  muteButton: {fileID: 0}
+  sliderVolumeMaster: {fileID: 0}
+  sliderVolumeSFX: {fileID: 0}
+  sliderVolumeMusique: {fileID: 0}
+  muteMaster: {fileID: 0}
+  muteSFX: {fileID: 0}
+  muteMusic: {fileID: 0}
 --- !u!114 &859898171
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2129,7 +2133,7 @@ AudioSource:
     type: 2}
   m_audioClip: {fileID: 8300000, guid: a61ee567600af3c4a8a5ab40f4ecf2f3, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.51
+  m_Volume: 1
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -2497,8 +2501,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a8c0cd6163f0f54dafbaa96cf56f98b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sliderVolume: {fileID: 1894634102}
-  muteButton: {fileID: 0}
+  sliderVolumeMaster: {fileID: 0}
+  sliderVolumeSFX: {fileID: 0}
+  sliderVolumeMusique: {fileID: 0}
+  muteMaster: {fileID: 0}
+  muteSFX: {fileID: 0}
+  muteMusic: {fileID: 0}
 --- !u!114 &1404033442
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3233,8 +3241,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a8c0cd6163f0f54dafbaa96cf56f98b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sliderVolume: {fileID: 1894634102}
-  muteButton: {fileID: 0}
+  sliderVolumeMaster: {fileID: 1894634102}
+  sliderVolumeSFX: {fileID: 1082735112}
+  sliderVolumeMusique: {fileID: 1070495966}
+  muteMaster: {fileID: 1893328602}
+  muteSFX: {fileID: 1404033442}
+  muteMusic: {fileID: 859898171}
 --- !u!1 &1894634099
 GameObject:
   m_ObjectHideFlags: 0
