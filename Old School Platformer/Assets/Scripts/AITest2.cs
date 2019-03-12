@@ -49,11 +49,12 @@ public class AITest2 : MonoBehaviour
         moveLeftState.AddTransition("To move right", moveRightState);
 
         vecPos = GameObject.Find("AI").transform.position;
-        vecRight = new Vector3(6.93f, -1.79f, 0);
-        vecLeft = new Vector3(-6.8f, -1.79f, 0);
+        vecRight = new Vector3(0.4f, 0, 0);
+        vecLeft = new Vector3(-0.3f, 0, 0);
 
-        moveLeftAction.init(this.transform, vecPos, vecLeft, 0.5f, finishEvent2);
-        moveRightAction.init(this.transform, vecPos, vecRight, 0.5f, finishEvent3);
+
+        moveLeftAction.init(this.transform, vecPos, vecLeft, 2.0f, finishEvent2);
+        moveRightAction.init(this.transform, vecPos, vecRight, 2.0f, finishEvent3);
         fsm.Start("moveLeft");
 
     }

@@ -15,6 +15,8 @@ public class MoveAction : FSMAction
     private int random;
     private Vector3 positionFrom;
     private Vector3 positionTo;
+    private Vector3 positionToW;
+   
 
 
 
@@ -33,9 +35,10 @@ public class MoveAction : FSMAction
         this.transform = transform;
         this.positionFrom = from;
         this.positionTo = to;
+        this.positionToW = to;
         this.polledTime = 0;
         this.journeyLength = Vector3.Distance(this.positionFrom, this.positionTo);
-
+        
     }
 
     public override void OnEnter()
@@ -52,6 +55,8 @@ public class MoveAction : FSMAction
     {
         polledTime += Time.deltaTime;
         duration -= Time.deltaTime;
+        random = this.rand.Next(0, 13);
+
         if (duration <= 0)
         {
 
@@ -59,8 +64,17 @@ public class MoveAction : FSMAction
             return;
         }
 
+        if(random == 0)
+        {
+            Finish();
+            
+            return;
+        }
+
 
         this.positionFrom = GameObject.Find("AI").transform.position;
+        this.positionTo = this.positionFrom + this.positionToW;
+
         //transform.position = Vector3.MoveTowards(this.positionFrom, this.positionTo, 0.005f*Time.deltaTime);
         SetPosition(Vector3.Lerp(this.positionFrom, this.positionTo, Mathf.Clamp(polledTime / cachedDuration, 0, 1)));
     }
@@ -86,7 +100,8 @@ public class MoveAction : FSMAction
         if (!string.IsNullOrEmpty(this.finishEvent[random]))
             GetOwner().SendEvent(this.finishEvent[random]);
 
-        SetPosition(this.positionTo);
+        //SetPosition(this.positionFrom + this.positionToW);
+        SetPosition(Vector3.Lerp(this.positionFrom, this.positionTo, Mathf.Clamp(polledTime / cachedDuration, 0, 2)));
         this.polledTime = 0;
         this.journeyLength = Vector3.Distance(this.positionFrom, this.positionTo);
 
