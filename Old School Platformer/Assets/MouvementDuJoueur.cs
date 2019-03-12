@@ -13,6 +13,7 @@ public class MouvementDuJoueur : MonoBehaviour
     private float mouvementInput;
 
     private Rigidbody2D myRB;
+    private float friction;
     public LayerMask playerMask;
 
     private bool flipTime = false;
@@ -22,19 +23,22 @@ public class MouvementDuJoueur : MonoBehaviour
     public bool isGrounded;
     public Transform groundCheck, myTrans;
     public float checkRadius;
-    public LayerMask whatIsGround;
 
     private BoxCollider2D crouchColliderDisabler;
+
+   /* private BoxCollider2D squareSlick;
+    private CircleCollider2D circleSlick;*/
 
     public UnityEvent onLandEvent;
     public class boolEvent : UnityEvent<bool> { }
     public boolEvent onCrouchEvent;
     private bool isCrouching = false;
 
-    /*public bool isWalled;
+    public bool isWalled;
     public Transform wallCheckLeft;
     public Transform wallCheckRight;
-    public LayerMask whatIsWall;*/
+
+    private bool wallJumpAllowed = false;
 
     public bool isTop;
     public Transform topCheck;
@@ -43,9 +47,16 @@ public class MouvementDuJoueur : MonoBehaviour
 
     void Start()
     {
-        m_vitesse = 100f;
+        m_vitesse = 3f;
+        forceDeSaut = 3f;
         myRB = this.GetComponent<Rigidbody2D>();
         crouchColliderDisabler = this.GetComponent<BoxCollider2D>();
+
+        /*squareSlick = this.GetComponent<BoxCollider2D>();
+        squareSlick.friction.Equals(0);
+        circleSlick = this.GetComponent<CircleCollider2D>();
+        circleSlick.friction.Equals(0);*/
+
         myTrans = this.transform;
         groundCheck = GameObject.Find(this.name + "/GroundCheck").transform;
 
@@ -53,12 +64,22 @@ public class MouvementDuJoueur : MonoBehaviour
             onLandEvent = new UnityEvent();
         if (onCrouchEvent == null)
             onCrouchEvent = new boolEvent();
-        
     }
 
 
     private void Update()
-    {       
+    {
+        myRB.rotation = 0;
+        myRB.gravityScale = 9.81f / 50f;
+        friction = 9.81f / 500f;
+        if (isWalled)
+        {
+            //myRB.gravityScale -= friction;
+            myRB.gravityScale /= 1.1f;
+            myRB.velocity /= 1.1f;
+        }
+
+
         if (Input.GetKeyDown(KeyCode.LeftArrow)) flipTime = true;
         if (Input.GetKeyDown(KeyCode.RightArrow)) flipTime = true;
         if (Input.GetKeyDown(KeyCode.UpArrow)) Jump();
@@ -85,14 +106,16 @@ public class MouvementDuJoueur : MonoBehaviour
             Crouch(isCrouching);
             wasTop = false;
         }
+        if (isWalled) wallJumpAllowed = true;
+        else wallJumpAllowed = false;
     }
 
     private void FixedUpdate()
     {
         isGrounded = Physics2D.Linecast(myTrans.position, groundCheck.position, playerMask);
         isTop = Physics2D.Linecast(myTrans.position, topCheck.position, playerMask);
-
-        myRB.rotation = 0;
+        if (Physics2D.Linecast(myTrans.position, wallCheckLeft.position, playerMask) || Physics2D.Linecast(myTrans.position, wallCheckRight.position, playerMask)) isWalled = true;
+        else isWalled = false;
 
         mouvementInput = Input.GetAxisRaw("Horizontal");
 
@@ -138,8 +161,15 @@ public class MouvementDuJoueur : MonoBehaviour
 
     void Jump()
     {
-        if (isGrounded == true && !isCrouching)
-            myRB.velocity += forceDeSaut * Vector2.up;
+        if (isGrounded == true && !isCrouching || wallJumpAllowed)
+        {
+            if (wallJumpAllowed)
+            {
+                float forceWallJump = forceDeSaut / 2f;
+                myRB.velocity += forceWallJump * Vector2.up;
+            } else
+                myRB.velocity += forceDeSaut * Vector2.up;
+        }
     }
 
     void StartMoving(float horizonalInput)
