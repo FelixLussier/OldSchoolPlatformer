@@ -33,11 +33,13 @@ public class AITest2 : MonoBehaviour
         finishEvent2 = new List<string>
         {
             "To move right",
+            //"To move left",
 
         };
         finishEvent3 = new List<string>
         {
             "To move left",
+            //"To move right",
 
         };
 
