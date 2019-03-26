@@ -3,17 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Bouton : MonoBehaviour
+public class Bouton : PauseMenu
 {
     public void changerScene()
     {
-        if(gameObject.name == "OuvrirSettings")
+
+        if(gameObject.name == "BoutonSettings")
         {
-            SceneManager.LoadScene("SettingsScene");
+            SceneManager.LoadScene("Settings");
+
         }
         else if (gameObject.name == "QuitterSettings")
         {
-            SceneManager.LoadScene("MainUI");
+            SceneManager.LoadScene("MainMenu");
+            pauseMenuUI.SetActive(true);
         }
+    }
+
+    public void quitterJeu()
+    {
+        Application.Quit();
     }
 }
