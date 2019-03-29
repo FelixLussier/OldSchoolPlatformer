@@ -20,6 +20,27 @@ public class BoutonMute : MonoBehaviour
     private bool wasMuteMusic = false;
     private bool wasMuteSFX = false;
 
+    private void Start()
+    {
+        float tempMaster = PlayerPrefs.GetFloat("MasterVol");
+        float tempMusic = PlayerPrefs.GetFloat("MusicVol");
+        float tempSFX = PlayerPrefs.GetFloat("SFXVol");
+
+        if(PlayerPrefs.GetInt("Apply") == 1)
+        {
+            sliderVolumeMaster.value = PlayerPrefs.GetFloat("MasterVol");
+            sliderVolumeMusique.value = PlayerPrefs.GetFloat("MusicVol");
+            sliderVolumeSFX.value = PlayerPrefs.GetFloat("MusicVol");
+        }
+        else
+        {
+            sliderVolumeMaster.value = tempMaster;
+            sliderVolumeMusique.value = tempMusic;
+            sliderVolumeSFX.value = tempSFX;
+        }
+        
+    }
+
     private void Update()
     {
         if (wasMuteMaster == false)

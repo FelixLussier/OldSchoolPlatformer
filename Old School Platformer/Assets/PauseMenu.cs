@@ -21,6 +21,13 @@ public class PauseMenu : MonoBehaviour
                 Pause();
             }
         }
+
+        if (PlayerPrefs.GetInt("Scene") == 1)
+        {
+            Resume();
+            Pause();
+            PlayerPrefs.DeleteKey("Scene");
+        }
     }
 
     public void Resume()
