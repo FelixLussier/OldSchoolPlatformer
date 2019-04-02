@@ -10,7 +10,6 @@ public class BoutonMute : MonoBehaviour
     public Toggle muteMaster = GameObject.Find("muteMaster").GetComponent<Toggle>();
     public Toggle muteSFX = GameObject.Find("muteSFX").GetComponent<Toggle>();
     public Toggle muteMusic = GameObject.Find("muteMusic").GetComponent<Toggle>();
-    private float volume;
     private float volumeMaster;
     private float volumeMusic;
     private float volumeSFX;
