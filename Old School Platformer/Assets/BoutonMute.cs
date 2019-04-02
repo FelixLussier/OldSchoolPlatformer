@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 
@@ -22,23 +20,21 @@ public class BoutonMute : MonoBehaviour
 
     private void Start()
     {
-        float tempMaster = PlayerPrefs.GetFloat("MasterVol");
-        float tempMusic = PlayerPrefs.GetFloat("MusicVol");
-        float tempSFX = PlayerPrefs.GetFloat("SFXVol");
-
-        if(PlayerPrefs.GetInt("Apply") == 1)
-        {
-            sliderVolumeMaster.value = PlayerPrefs.GetFloat("MasterVol");
-            sliderVolumeMusique.value = PlayerPrefs.GetFloat("MusicVol");
-            sliderVolumeSFX.value = PlayerPrefs.GetFloat("MusicVol");
-        }
-        else
-        {
-            sliderVolumeMaster.value = tempMaster;
-            sliderVolumeMusique.value = tempMusic;
-            sliderVolumeSFX.value = tempSFX;
-        }
-        
+        sliderVolumeMaster.value = PlayerPrefs.GetFloat("MasterVol");
+        sliderVolumeMusique.value = PlayerPrefs.GetFloat("MusicVol");
+        sliderVolumeSFX.value = PlayerPrefs.GetFloat("SFXVol");
+        if (PlayerPrefs.GetInt("wasMuteMaster") == 0) wasMuteMaster = false;
+        else wasMuteMaster = true;
+        if (PlayerPrefs.GetInt("wasMuteMusic") == 0) wasMuteMusic = false;
+        else wasMuteMusic = true;
+        if (PlayerPrefs.GetInt("wasMuteSFX") == 0) wasMuteSFX = false;
+        else wasMuteSFX = true;
+        if (PlayerPrefs.GetInt("muteMaster") == 0) muteMaster.isOn = false;
+        else muteMaster.isOn = true;
+        if (PlayerPrefs.GetInt("muteMusic") == 0) muteMusic.isOn = false;
+        else muteMusic.isOn = true;
+        if (PlayerPrefs.GetInt("muteSFX") == 0) muteSFX.isOn = false;
+        else muteSFX.isOn = true;
     }
 
     private void Update()
@@ -79,6 +75,10 @@ public class BoutonMute : MonoBehaviour
             wasMuteMaster = true;
             muteMusic.isOn = true;
             muteSFX.isOn = true;
+            PlayerPrefs.SetInt("muteMaster", 1);
+            PlayerPrefs.SetInt("muteMusic", 1);
+            PlayerPrefs.SetInt("muteVol", 1);
+            PlayerPrefs.SetInt("wasMuteMaster", 1);
         }
 
         if (wasMuteMaster == true && muteMaster.isOn == false)
@@ -89,31 +89,44 @@ public class BoutonMute : MonoBehaviour
             muteMusic.isOn = false;
             muteSFX.isOn = false;
             wasMuteMaster = false;
+            PlayerPrefs.SetInt("muteMaster", 0);
+            PlayerPrefs.SetInt("muteMusic", 0);
+            PlayerPrefs.SetInt("muteVol", 0);
+            PlayerPrefs.SetInt("wasMuteMaster", 0);
         }
 
         if (muteMusic.isOn == true)
         {
             sliderVolumeMusique.value = -35;
             wasMuteMusic = true;
+            PlayerPrefs.SetInt("muteMusic", 1);
+            PlayerPrefs.SetInt("wasMuteMusic", 1);
         }
 
         if (wasMuteMusic == true && muteMusic.isOn == false)
         {
             sliderVolumeMusique.value = volumeMusic;
             wasMuteMusic = false;
+            PlayerPrefs.SetInt("muteMusic", 0);
+            PlayerPrefs.SetInt("wasMuteMusic", 0);
         }
 
         if (muteSFX.isOn == true)
         {
             sliderVolumeSFX.value = -35;
             wasMuteSFX = true;
+            PlayerPrefs.SetInt("muteSFX", 1);
+            PlayerPrefs.SetInt("wasMuteSFX", 1);
         }
 
         if (wasMuteSFX == true && muteSFX.isOn == false)
         {
             sliderVolumeSFX.value = volumeSFX;
             wasMuteSFX = false;
+            PlayerPrefs.SetInt("muteSFX", 0);
+            PlayerPrefs.SetInt("wasMuteSFX", 0);
         }
+
     }
 
 

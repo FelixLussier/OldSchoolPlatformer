@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class SaveGame : MonoBehaviour
 {
@@ -13,7 +11,7 @@ public class SaveGame : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         PlayerPrefs.SetFloat("PlayerPosX", PlayerObject.transform.position.x);
         PlayerPrefs.SetFloat("PlayerPosY", PlayerObject.transform.position.y);

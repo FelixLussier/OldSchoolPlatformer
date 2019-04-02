@@ -1,10 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
-public class Bouton : PauseMenu
+public class Bouton : MonoBehaviour
 {
 
     public void changerScene()
@@ -13,16 +10,9 @@ public class Bouton : PauseMenu
         {
             SceneManager.LoadScene("Settings");
         }
-        else if (gameObject.name == "ApplySettings")
+        else if (gameObject.name == "QuitterSettings")
         {
             SceneManager.LoadScene("MainMenu");
-            PlayerPrefs.SetInt("Apply", 1);
-            PlayerPrefs.SetInt("Scene", 1);
-        }
-        else if (gameObject.name == "QuitterSettings" || gameObject.name == "CancelSettings")
-        {
-            SceneManager.LoadScene("MainMenu");
-            PlayerPrefs.SetInt("Apply", 0);
             PlayerPrefs.SetInt("Scene", 1);
         }
     }
