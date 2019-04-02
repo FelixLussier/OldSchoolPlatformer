@@ -6,8 +6,12 @@ using UnityEngine.Events;
 public class MouvementDuJoueur : MonoBehaviour
 {
 
-    public float masseJoueur;
-    public float gravité;
+    public float masseJoueur = 1;
+    public const float CONST_GRAVITY = 4;
+    public float materialFriction;
+    public float downForce;
+    private float forceVerticalJoueur;
+
     public float m_vitesse;
     public float forceDeSaut;
     private float mouvementInput;
@@ -39,6 +43,7 @@ public class MouvementDuJoueur : MonoBehaviour
     public Transform wallCheckRight;
 
     private bool wallJumpAllowed = false;
+    private bool hasWallJumped = false;
 
     public bool isTop;
     public Transform topCheck;
@@ -48,7 +53,7 @@ public class MouvementDuJoueur : MonoBehaviour
     void Start()
     {
         m_vitesse = 3f;
-        forceDeSaut = 3f;
+        forceDeSaut = 10f;
         myRB = this.GetComponent<Rigidbody2D>();
         crouchColliderDisabler = this.GetComponent<BoxCollider2D>();
 
@@ -60,6 +65,7 @@ public class MouvementDuJoueur : MonoBehaviour
         myTrans = this.transform;
         groundCheck = GameObject.Find(this.name + "/GroundCheck").transform;
 
+
         if (onLandEvent == null)
             onLandEvent = new UnityEvent();
         if (onCrouchEvent == null)
@@ -69,21 +75,10 @@ public class MouvementDuJoueur : MonoBehaviour
 
     private void Update()
     {
-        myRB.rotation = 0;
-        myRB.gravityScale = 9.81f / 50f;
-        friction = 9.81f / 500f;
-        if (isWalled)
-        {
-            //myRB.gravityScale -= friction;
-            myRB.gravityScale /= 1.1f;
-            myRB.velocity /= 1.1f;
-        }
 
-
-        if (Input.GetKeyDown(KeyCode.LeftArrow)) flipTime = true;
-        if (Input.GetKeyDown(KeyCode.RightArrow)) flipTime = true;
+        if (Input.GetKey(KeyCode.LeftArrow)) flipTime = true;
+        if (Input.GetKey(KeyCode.RightArrow)) flipTime = true;
         if (Input.GetKeyDown(KeyCode.UpArrow)) Jump();
-
 
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
@@ -116,6 +111,7 @@ public class MouvementDuJoueur : MonoBehaviour
         isTop = Physics2D.Linecast(myTrans.position, topCheck.position, playerMask);
         if (Physics2D.Linecast(myTrans.position, wallCheckLeft.position, playerMask) || Physics2D.Linecast(myTrans.position, wallCheckRight.position, playerMask)) isWalled = true;
         else isWalled = false;
+        if (!isWalled && hasWallJumped) hasWallJumped = false;
 
         mouvementInput = Input.GetAxisRaw("Horizontal");
 
@@ -131,6 +127,48 @@ public class MouvementDuJoueur : MonoBehaviour
             Flip();
             regardeDroite = false;
         }
+
+        myRB.rotation = 0;
+
+       
+        //myRB.gravityScale = (9.81f / 50f) * CONST_GRAVITY;
+       /* myRB.gravityScale = 1;
+        friction = 9.81f / 500f;
+        masseJoueur = 80f;
+
+        float downForceTemp = Vector2.down.y;
+        float forceVerticalTemp = 0f;
+        downForce = (masseJoueur * 9.81f) / 50f;
+        forceVerticalJoueur = 1f / 50f;
+
+        if (isWalled)
+        {
+            //myRB.gravityScale -= friction;
+            // myRB.gravityScale /= (9.81f * CONST_GRAVITY) - (materialFriction * downForce) / 50f;
+            //myRB.velocity /= 1.1f;
+
+            materialFriction = 0.5f;
+
+            if (downForceTemp < downForce && forceVerticalTemp < forceVerticalJoueur)
+            {
+                downForceTemp += (downForce * Time.fixedDeltaTime);
+                forceVerticalTemp += (forceVerticalJoueur * Time.fixedDeltaTime);
+
+                myRB.velocity += (Vector2.down * (downForceTemp)) + (Vector2.up * (forceVerticalTemp * materialFriction));
+            }
+
+        }
+        else
+        {
+            if (downForceTemp < downForce)
+            {
+                downForceTemp += (downForce * Time.fixedDeltaTime);
+
+                myRB.velocity += (Vector2.down * (downForceTemp));
+            }
+        }
+        */
+
     }
 
     void Crouch(bool Crouching)
@@ -141,12 +179,12 @@ public class MouvementDuJoueur : MonoBehaviour
             {
                 crouchColliderDisabler.enabled = false;
 
-                m_vitesse = 50f;
+                m_vitesse = 1.5f;
             }
             else
             {
                 crouchColliderDisabler.enabled = true;
-                m_vitesse = 100f;
+                m_vitesse = 3f;
             }
         }
     }
@@ -161,13 +199,14 @@ public class MouvementDuJoueur : MonoBehaviour
 
     void Jump()
     {
-        if (isGrounded == true && !isCrouching || wallJumpAllowed)
+        if (isGrounded && !isCrouching || wallJumpAllowed)
         {
-            if (wallJumpAllowed)
+            if (wallJumpAllowed && !hasWallJumped)
             {
-                float forceWallJump = forceDeSaut / 2f;
-                myRB.velocity += forceWallJump * Vector2.up;
-            } else
+                float forceWallJump = forceDeSaut;
+                myRB.velocity = forceWallJump * Vector2.up;
+                hasWallJumped = true;
+            } else if (isGrounded)
                 myRB.velocity += forceDeSaut * Vector2.up;
         }
     }
