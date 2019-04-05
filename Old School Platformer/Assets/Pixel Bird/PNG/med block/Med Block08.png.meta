@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: ccad60871ac3904479dc2c568f4e75f7
+=======
+guid: 1e7ba79fd494d70419bdde6bde848218
+>>>>>>> AI
 TextureImporter:
   fileIDToRecycleName:
     2186277476908879412: ImportLogs
@@ -36,8 +40,8 @@ TextureImporter:
     aniso: -1
     mipBias: -100
     wrapU: 1
-    wrapV: -1
-    wrapW: -1
+    wrapV: 1
+    wrapW: 1
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
@@ -58,6 +62,7 @@ TextureImporter:
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
+<<<<<<< HEAD
   platformSettings:
   - serializedVersion: 2
     buildTarget: DefaultTexturePlatform
@@ -114,6 +119,9 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
+=======
+  platformSettings: []
+>>>>>>> AI
   spriteSheet:
     serializedVersion: 2
     sprites: []

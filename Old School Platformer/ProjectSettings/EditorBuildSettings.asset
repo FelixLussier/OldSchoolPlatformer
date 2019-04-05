@@ -8,6 +8,7 @@ EditorBuildSettings:
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
+<<<<<<< HEAD
   - enabled: 1
     path: Assets/Scenes/MainMenu.unity
     guid: c00ac72488889bc4ab3ea5fb35d597a3
@@ -20,4 +21,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/OKTRY.unity
     guid: 74e71f1c83278674fb1426bb820686cf
+=======
+>>>>>>> AI
   m_configObjects: {}
