@@ -1150,6 +1150,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 681e54ff1d7d2824e9a86f06f03a91fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  music: {fileID: 0}
 --- !u!1001 &1158763321
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1252,22 +1253,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33c3eddbe71816547b4d552e9a76bd16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  masseJoueur: 10
-  "gravit\xE9": 0
-  vitesse: 200
-  forceDeSaut: 160
-  isGrounded: 0
-  groundCheck: {fileID: 249853754}
-  checkRadius: 0.5
-  whatIsGround:
-    serializedVersion: 2
-    m_Bits: 22816
-  isWalled: 0
-  wallCheckLeft: {fileID: 966456110}
-  wallCheckRight: {fileID: 1388926681}
-  whatIsWall:
-    serializedVersion: 2
-    m_Bits: 27136
 --- !u!61 &1256543537
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2195,7 +2180,7 @@ GameObject:
   - component: {fileID: 2106013287}
   - component: {fileID: 2106013290}
   m_Layer: 5
-  m_Name: BoutonQuit
+  m_Name: BoutonMainMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2262,7 +2247,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2106013290}
-        m_MethodName: quitterJeu
+        m_MethodName: changerScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2323,3 +2308,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 681e54ff1d7d2824e9a86f06f03a91fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  music: {fileID: 0}

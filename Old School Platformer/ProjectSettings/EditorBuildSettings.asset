@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Settings.unity
     guid: 8dcfc41823ad28b43a80acf18c9f27f6
+  - enabled: 1
+    path: Assets/Scenes/OKTRY.unity
+    guid: 74e71f1c83278674fb1426bb820686cf
   m_configObjects: {}

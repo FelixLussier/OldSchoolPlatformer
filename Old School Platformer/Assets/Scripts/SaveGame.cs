@@ -8,6 +8,7 @@ public class SaveGame : MonoBehaviour
     {
         Vector2 savedPosition = new Vector2(PlayerPrefs.GetFloat("PlayerPosX"), PlayerPrefs.GetFloat("PlayerPosY"));
         PlayerObject.transform.position = savedPosition;
+        
     }
 
     // Update is called once per frame

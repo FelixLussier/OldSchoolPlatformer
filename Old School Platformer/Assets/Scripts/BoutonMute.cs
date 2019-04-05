@@ -4,12 +4,12 @@ using UnityEngine.UI;
 
 public class BoutonMute : MonoBehaviour
 {
-    public Slider sliderVolumeMaster = GameObject.Find("sliderMaster").GetComponent<Slider>();
-    public Slider sliderVolumeSFX = GameObject.Find("sliderSound").GetComponent<Slider>();
-    public Slider sliderVolumeMusique = GameObject.Find("sliderMusic").GetComponent<Slider>();
-    public Toggle muteMaster = GameObject.Find("muteMaster").GetComponent<Toggle>();
-    public Toggle muteSFX = GameObject.Find("muteSFX").GetComponent<Toggle>();
-    public Toggle muteMusic = GameObject.Find("muteMusic").GetComponent<Toggle>();
+    public Slider sliderVolumeMaster;
+    public Slider sliderVolumeSFX;
+    public Slider sliderVolumeMusique;
+    public Toggle muteMaster;
+    public Toggle muteSFX;
+    public Toggle muteMusic;
     private float volumeMaster;
     private float volumeMusic;
     private float volumeSFX;
@@ -19,6 +19,13 @@ public class BoutonMute : MonoBehaviour
 
     private void Start()
     {
+        sliderVolumeMaster = GameObject.Find("sliderMaster").GetComponent<Slider>();
+        sliderVolumeSFX = GameObject.Find("sliderSound").GetComponent<Slider>();
+        sliderVolumeMusique = GameObject.Find("sliderMusic").GetComponent<Slider>();
+        muteMaster = GameObject.Find("muteMaster").GetComponent<Toggle>();
+        muteSFX = GameObject.Find("muteSFX").GetComponent<Toggle>();
+        muteMusic = GameObject.Find("muteMusic").GetComponent<Toggle>();
+
         sliderVolumeMaster.value = PlayerPrefs.GetFloat("MasterVol");
         sliderVolumeMusique.value = PlayerPrefs.GetFloat("MusicVol");
         sliderVolumeSFX.value = PlayerPrefs.GetFloat("SFXVol");
