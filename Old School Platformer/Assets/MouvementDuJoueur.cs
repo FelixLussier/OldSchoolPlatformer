@@ -3,21 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class MouvementDuJoueur : MonoBehaviour
+public class MouvementDuJoueur : Gravity
 {
-
-    public float masseJoueur = 1;
-    public const float CONST_GRAVITY = 4;
-    public float materialFriction;
-    public float downForce;
-    private float forceVerticalJoueur;
-
     public float m_vitesse;
     public float forceDeSaut;
     private float mouvementInput;
 
     private Rigidbody2D myRB;
-    private float friction;
     public LayerMask playerMask;
 
     private bool flipTime = false;
@@ -26,14 +18,10 @@ public class MouvementDuJoueur : MonoBehaviour
     //Verifie les platformes
     public bool isGrounded;
     public Transform groundCheck, myTrans;
-    public float checkRadius;
 
     private BoxCollider2D crouchColliderDisabler;
 
-   /* private BoxCollider2D squareSlick;
-    private CircleCollider2D circleSlick;*/
-
-    public UnityEvent onLandEvent;
+    private UnityEvent onLandEvent;
     public class boolEvent : UnityEvent<bool> { }
     public boolEvent onCrouchEvent;
     private bool isCrouching = false;
@@ -57,14 +45,8 @@ public class MouvementDuJoueur : MonoBehaviour
         myRB = this.GetComponent<Rigidbody2D>();
         crouchColliderDisabler = this.GetComponent<BoxCollider2D>();
 
-        /*squareSlick = this.GetComponent<BoxCollider2D>();
-        squareSlick.friction.Equals(0);
-        circleSlick = this.GetComponent<CircleCollider2D>();
-        circleSlick.friction.Equals(0);*/
-
         myTrans = this.transform;
         groundCheck = GameObject.Find(this.name + "/GroundCheck").transform;
-
 
         if (onLandEvent == null)
             onLandEvent = new UnityEvent();
@@ -101,7 +83,10 @@ public class MouvementDuJoueur : MonoBehaviour
             Crouch(isCrouching);
             wasTop = false;
         }
-        if (isWalled) wallJumpAllowed = true;
+        if (isWalled)
+        {
+            wallJumpAllowed = true;
+        }
         else wallJumpAllowed = false;
     }
 
@@ -129,46 +114,6 @@ public class MouvementDuJoueur : MonoBehaviour
         }
 
         myRB.rotation = 0;
-
-       
-        //myRB.gravityScale = (9.81f / 50f) * CONST_GRAVITY;
-       /* myRB.gravityScale = 1;
-        friction = 9.81f / 500f;
-        masseJoueur = 80f;
-
-        float downForceTemp = Vector2.down.y;
-        float forceVerticalTemp = 0f;
-        downForce = (masseJoueur * 9.81f) / 50f;
-        forceVerticalJoueur = 1f / 50f;
-
-        if (isWalled)
-        {
-            //myRB.gravityScale -= friction;
-            // myRB.gravityScale /= (9.81f * CONST_GRAVITY) - (materialFriction * downForce) / 50f;
-            //myRB.velocity /= 1.1f;
-
-            materialFriction = 0.5f;
-
-            if (downForceTemp < downForce && forceVerticalTemp < forceVerticalJoueur)
-            {
-                downForceTemp += (downForce * Time.fixedDeltaTime);
-                forceVerticalTemp += (forceVerticalJoueur * Time.fixedDeltaTime);
-
-                myRB.velocity += (Vector2.down * (downForceTemp)) + (Vector2.up * (forceVerticalTemp * materialFriction));
-            }
-
-        }
-        else
-        {
-            if (downForceTemp < downForce)
-            {
-                downForceTemp += (downForce * Time.fixedDeltaTime);
-
-                myRB.velocity += (Vector2.down * (downForceTemp));
-            }
-        }
-        */
-
     }
 
     void Crouch(bool Crouching)

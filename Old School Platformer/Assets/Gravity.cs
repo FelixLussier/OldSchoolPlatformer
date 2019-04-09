@@ -29,7 +29,7 @@ public class Gravity : MonoBehaviour
         downForce = (rb.mass * 9.81f) * Time.fixedDeltaTime;
         float forceVerticalJoueur = 200f * Time.fixedDeltaTime;
 
-        float materialFriction = 0.5f;
+        float materialFriction = 0f;
 
         friction = forceVerticalJoueur * materialFriction;
 
