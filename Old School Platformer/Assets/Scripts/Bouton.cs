@@ -18,15 +18,14 @@ public class Bouton : MonoBehaviour
         }
         else if(gameObject.name == "BoutonMainMenu")
         {
-            SceneManager.LoadScene("MainMenu");
             PlayerPrefs.SetInt("Scene", 1);
-            Destroy(music);
+            SceneManager.LoadScene("MainMenu");
         }
         else if (gameObject.name == "QuitterSettings")
         {
+            PlayerPrefs.SetInt("Scene", 1);
             string nomScene = PlayerPrefs.GetString("SceneName");
             SceneManager.LoadScene(nomScene);
-            PlayerPrefs.SetInt("Scene", 1);
             PlayerPrefs.DeleteKey("SceneName");
         }
     }
