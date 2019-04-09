@@ -4936,7 +4936,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1578738975}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.006, y: -1.454, z: 0}
+  m_LocalPosition: {x: -0.01, y: -1.58, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2096532611}
@@ -6002,6 +6002,7 @@ GameObject:
   - component: {fileID: 2096532613}
   - component: {fileID: 2096532612}
   - component: {fileID: 2096532609}
+  - component: {fileID: 2096532614}
   m_Layer: 8
   m_Name: _0009_Idle-hero01_001.png
   m_TagString: Untagged
@@ -6138,6 +6139,39 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.981334, y: 1.520188}
   m_EdgeRadius: 0
+--- !u!114 &2096532614
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2096532608}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 514d1cf70747c2b49a5deb2d6c8e9396, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  masseJoueur: 0
+  "gravit\xE9": 0
+  m_vitesse: 0
+  forceDeSaut: 0
+  playerMask:
+    serializedVersion: 2
+    m_Bits: 55
+  isGrounded: 0
+  groundCheck: {fileID: 1578738976}
+  myTrans: {fileID: 0}
+  checkRadius: 0
+  onLandEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  isWalled: 0
+  wallCheckLeft: {fileID: 436636919}
+  wallCheckRight: {fileID: 1241521863}
+  isTop: 0
+  topCheck: {fileID: 619769147}
 --- !u!114 &2096532615
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6177,28 +6211,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33c3eddbe71816547b4d552e9a76bd16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  masseJoueur: 1
-  materialFriction: 0
-  downForce: 0
-  m_vitesse: 0
-  forceDeSaut: 0
-  playerMask:
-    serializedVersion: 2
-    m_Bits: 567
-  isGrounded: 0
-  groundCheck: {fileID: 1578738976}
-  myTrans: {fileID: 0}
-  checkRadius: 0
-  onLandEvent:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  isWalled: 0
-  wallCheckLeft: {fileID: 436636919}
-  wallCheckRight: {fileID: 1241521863}
-  isTop: 0
-  topCheck: {fileID: 619769147}
 --- !u!1 &2104058628
 GameObject:
   m_ObjectHideFlags: 0
