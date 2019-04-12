@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MoveTargetAction : FSMAction
+public class RetreatAction : FSMAction
 {
     private Transform transform;
     private float duration;
@@ -20,13 +20,13 @@ public class MoveTargetAction : FSMAction
 
 
 
-    public MoveTargetAction(FSMState owner) : base(owner)
+    public RetreatAction(FSMState owner) : base(owner)
     {
 
     }
 
 
-    public void init(Transform transform, Vector3 deplacement, float duration, List<string> finishEventList)
+    public void init(Transform transform,Vector3 deplacement,float duration, List<string> finishEventList)
     {
 
         this.duration = duration;
@@ -63,17 +63,15 @@ public class MoveTargetAction : FSMAction
         this.positionFrom = GameObject.Find("Boss").transform.position;
         if (GameObject.Find("Boss").transform.position.x < GameObject.Find("AI").transform.position.x)
         {
-            this.positionTo = this.positionFrom + deplacement;
+            this.positionTo = this.positionFrom - deplacement;
         }
         else
         {
-            this.positionTo = this.positionFrom - deplacement;
+            this.positionTo = this.positionFrom + deplacement;
+            
         }
 
-        if (GameObject.Find("Boss").transform.position.x - GameObject.Find("AI").transform.position.x > 2 || GameObject.Find("Boss").transform.position.x - GameObject.Find("AI").transform.position.x < -2)
-        {
-            SetPosition(Vector3.Lerp(this.positionFrom, this.positionTo, Mathf.Clamp(polledTime / cachedDuration, 0, 1)));
-        }
+        SetPosition(Vector3.Lerp(this.positionFrom, this.positionTo, Mathf.Clamp(polledTime / cachedDuration, 0, 1)));
 
     }
 
@@ -110,4 +108,6 @@ public class MoveTargetAction : FSMAction
     {
         GameObject.Find("Boss").transform.position = position;
     }
+    
+    
 }
