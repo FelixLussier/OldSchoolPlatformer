@@ -27,6 +27,8 @@ public class MouvementDuJoueur : Gravity
     private bool isCrouching = false;
 
     public bool isWalled;
+    private bool isRightWalled;
+    private bool isLeftWalled;
     public Transform wallCheckLeft;
     public Transform wallCheckRight;
 
@@ -94,6 +96,9 @@ public class MouvementDuJoueur : Gravity
     {
         isGrounded = Physics2D.Linecast(myTrans.position, groundCheck.position, playerMask);
         isTop = Physics2D.Linecast(myTrans.position, topCheck.position, playerMask);
+        isRightWalled = Physics2D.Linecast(myTrans.position, wallCheckRight.position, playerMask);
+        isLeftWalled = Physics2D.Linecast(myTrans.position, wallCheckLeft.position, playerMask);
+
         if (Physics2D.Linecast(myTrans.position, wallCheckLeft.position, playerMask) || Physics2D.Linecast(myTrans.position, wallCheckRight.position, playerMask)) isWalled = true;
         else isWalled = false;
         if (!isWalled && hasWallJumped) hasWallJumped = false;
@@ -138,21 +143,34 @@ public class MouvementDuJoueur : Gravity
     {
         Vector2 mouvementVelocity = myRB.velocity;
         mouvementVelocity.x = horizonalInput * vitesse;
+
+       /* if (isRightWalled && mouvementVelocity.x >= 0)
+        {
+            mouvementVelocity.x = 0;
+        }
+        else if (isLeftWalled && mouvementVelocity.x <= 0)
+        {
+            mouvementVelocity.x = 0;
+        }*/
+       
         myRB.velocity = mouvementVelocity;
        
     }
 
     void Jump()
     {
+        Vector2 jumpVelocity = myRB.velocity;
         if (isGrounded && !isCrouching || wallJumpAllowed)
         {
             if (wallJumpAllowed && !hasWallJumped)
             {
                 float forceWallJump = forceDeSaut;
-                myRB.velocity = forceWallJump * Vector2.up;
+                jumpVelocity.y = forceWallJump;
+                myRB.velocity = jumpVelocity;
                 hasWallJumped = true;
             } else if (isGrounded)
-                myRB.velocity += forceDeSaut * Vector2.up;
+                jumpVelocity.y = forceDeSaut;
+                myRB.velocity = jumpVelocity;
         }
     }
 
