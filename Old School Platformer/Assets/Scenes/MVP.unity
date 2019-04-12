@@ -6160,7 +6160,7 @@ MonoBehaviour:
     m_Bits: 55
   isGrounded: 0
   groundCheck: {fileID: 1578738976}
-  myTrans: {fileID: 0}
+  myTrans: {fileID: 2096532611}
   checkRadius: 0
   onLandEvent:
     m_PersistentCalls:

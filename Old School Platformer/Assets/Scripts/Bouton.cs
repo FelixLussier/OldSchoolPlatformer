@@ -19,6 +19,7 @@ public class Bouton : MonoBehaviour
         else if(gameObject.name == "BoutonMainMenu")
         {
             PlayerPrefs.SetInt("Scene", 1);
+            PlayerPrefs.SetInt("Music", 1);
             SceneManager.LoadScene("MainMenu");
         }
         else if (gameObject.name == "QuitterSettings")

@@ -9,13 +9,15 @@ public class ChangeScene : MonoBehaviour
         //Vérifie avec quelle boîte le joueur entre en collision
         if(gameObject.name == "PortailBleu")
         {
-            
+            PlayerPrefs.DeleteKey("PlayerPosX");
+            PlayerPrefs.DeleteKey("PlayerPosY");
+            PlayerPrefs.SetFloat("PlayerPosX", -7);
+            PlayerPrefs.SetFloat("PlayerPosY", -5);
             SceneManager.LoadScene("MainScene");
         }
         if(gameObject.name == "PortailOrange")
         {
-            PlayerPrefs.SetString("SceneName", SceneManager.GetActiveScene().name);
-            SceneManager.LoadScene("Settings");
+            SceneManager.LoadScene("MainScene");
         }
     }
 
