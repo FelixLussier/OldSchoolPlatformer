@@ -1490,7 +1490,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 771319170}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38cc2491716b29f42959e9f103048c76, type: 3}
+  m_Script: {fileID: 11500000, guid: 44bcc17585fdabe4e8c7425ba8d51e9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 1282003701}
@@ -2270,8 +2270,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 514d1cf70747c2b49a5deb2d6c8e9396, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  masseJoueur: 0
-  "gravit\xE9": 0
+  gravityModifier: 1
+  downForce: 0
+  gravity: 0
   m_vitesse: 0
   forceDeSaut: 0
   playerMask:
@@ -2280,12 +2281,6 @@ MonoBehaviour:
   isGrounded: 0
   groundCheck: {fileID: 153732758}
   myTrans: {fileID: 1282003701}
-  checkRadius: 0
-  onLandEvent:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
   isWalled: 0
   wallCheckLeft: {fileID: 1762927283}
   wallCheckRight: {fileID: 1098450151}
@@ -2363,7 +2358,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1282003692}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc83db92aa48ef94c86b8799df9dc0c7, type: 3}
+  m_Script: {fileID: 11500000, guid: 04b7a2b809b29c8458192eaa3fd88a81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   gravityModifier: 1
@@ -2430,7 +2425,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: 8e9c5d874756b8149a84d8cca1b510a3, type: 3}
+  m_Sprite: {fileID: 21300000, guid: dab026b1f4e37984081c2aff91a44e7d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
