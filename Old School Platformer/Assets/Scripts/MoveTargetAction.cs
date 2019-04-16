@@ -61,15 +61,20 @@ public class MoveTargetAction : FSMAction
         }
 
         this.positionFrom = GameObject.Find("Boss").transform.position;
+        //this if/else finds out on which side the ennemis is
         if (GameObject.Find("Boss").transform.position.x < GameObject.Find("AI").transform.position.x)
         {
+            GameObject.Find("Boss").GetComponent<SpriteRenderer>().flipX = true;
             this.positionTo = this.positionFrom + deplacement;
         }
         else
         {
+            GameObject.Find("Boss").GetComponent<SpriteRenderer>().flipX = false;
             this.positionTo = this.positionFrom - deplacement;
         }
+        
 
+        //Makes sure the boss doesn't move in too close
         if (GameObject.Find("Boss").transform.position.x - GameObject.Find("AI").transform.position.x > 2 || GameObject.Find("Boss").transform.position.x - GameObject.Find("AI").transform.position.x < -2)
         {
             SetPosition(Vector3.Lerp(this.positionFrom, this.positionTo, Mathf.Clamp(polledTime / cachedDuration, 0, 1)));
@@ -91,10 +96,10 @@ public class MoveTargetAction : FSMAction
 
         this.length = this.finishEvent.Count;
 
-
+        //Chooses a random transition to another state
         random = this.rand.Next(0, length);
 
-
+        //Returns the next state to go to
         if (!string.IsNullOrEmpty(this.finishEvent[random]))
             GetOwner().SendEvent(this.finishEvent[random]);
 
