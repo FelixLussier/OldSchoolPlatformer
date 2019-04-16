@@ -11,8 +11,8 @@ public class ChangeScene : MonoBehaviour
         {
             PlayerPrefs.DeleteKey("PlayerPosX");
             PlayerPrefs.DeleteKey("PlayerPosY");
-            PlayerPrefs.SetFloat("PlayerPosX", 5);
-            PlayerPrefs.SetFloat("PlayerPosY", 4);
+            PlayerPrefs.SetFloat("PlayerPosX", -7);
+            PlayerPrefs.SetFloat("PlayerPosY", -5);
             SceneManager.LoadScene("MainScene");
         }
         if(gameObject.name == "PortailOrange")
