@@ -26,16 +26,14 @@ public class PatrolAction : FSMAction
     }
 
 
-    public void init(Transform transform, Vector3 from, Vector3 to, float duration, List<string> finishEventList)
+    public void init(Transform transform, float duration, List<string> finishEventList)
     {
 
         this.duration = duration;
         this.finishEvent = finishEventList;
         this.cachedDuration = duration;
         this.transform = transform;
-        this.positionFrom = from;
-        this.positionTo = to;
-        this.positionToW = to;
+        
         this.polledTime = 0;
         this.journeyLength = Vector3.Distance(this.positionFrom, this.positionTo);
 

@@ -55,8 +55,7 @@ public class MoveAction : FSMAction
     {
         polledTime += Time.deltaTime;
         duration -= Time.deltaTime;
-        random = this.rand.Next(0, 13);
-
+        
         if (duration <= 0)
         {
 
@@ -64,15 +63,10 @@ public class MoveAction : FSMAction
             return;
         }
 
-        if(random == 0)
-        {
-            Finish();
-            
-            return;
-        }
+        
 
 
-        this.positionFrom = GameObject.Find("AI").transform.position;
+        this.positionFrom = this.transform.position;
         this.positionTo = this.positionFrom + this.positionToW;
 
         //transform.position = Vector3.MoveTowards(this.positionFrom, this.positionTo, 0.005f*Time.deltaTime);
