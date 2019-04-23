@@ -2,40 +2,40 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PatrolAction : FSMAction
+public class JumpAction : FSMAction
 {
     private Transform transform;
+    private Rigidbody2D myRB;
     private float duration;
     private float cachedDuration;
-    private float journeyLength;
+    private Vector3 positionFrom;
+    private Vector3 positionTo;
+    private Vector3 deplacement;
+    private Vector3 deplacementTombe = new Vector3(0.1f, 0, 0);
     private float polledTime;
     private List<string> finishEvent;
     private int length = 0;
     private System.Random rand = new System.Random();
     private int random;
-    private Vector3 positionFrom;
-    private Vector3 positionTo;
-    private Vector3 positionToW;
 
 
 
 
-    public PatrolAction(FSMState owner) : base(owner)
+
+    public JumpAction(FSMState owner) : base(owner)
     {
 
     }
 
 
-    public void init(Transform transform, float duration, List<string> finishEventList)
+    public void init(Transform transform, Vector3 deplacement, float duration, List<string> finishEventList)
     {
 
         this.duration = duration;
         this.finishEvent = finishEventList;
         this.cachedDuration = duration;
-        this.transform = transform;
-        
-        this.polledTime = 0;
-        this.journeyLength = Vector3.Distance(this.positionFrom, this.positionTo);
+        this.deplacement = deplacement;
+
 
     }
 
@@ -46,11 +46,14 @@ public class PatrolAction : FSMAction
             Finish();
             return;
         }
-        SetPosition(this.positionFrom);
+
     }
 
     public override void OnUpdate()
     {
+        
+
+
         polledTime += Time.deltaTime;
         duration -= Time.deltaTime;
         random = this.rand.Next(0, 13);
@@ -62,19 +65,19 @@ public class PatrolAction : FSMAction
             return;
         }
 
-        if (random == 0)
-        {
-            Finish();
+        this.positionFrom = GameObject.Find("Boss").transform.position;
 
-            return;
-        }
+        float forceDeSaut = 10f;
+        Vector2 jumpVelocity = myRB.velocity;
+           
+        jumpVelocity.y = forceDeSaut;
+        myRB.velocity = jumpVelocity;
+        
 
 
-        this.positionFrom = GameObject.Find("AI").transform.position;
-        this.positionTo = this.positionFrom + this.positionToW;
+        //SetPosition(Vector3.Lerp(this.positionFrom, this.positionTo, Mathf.Clamp(polledTime / cachedDuration, 0, 1)));
 
-        //transform.position = Vector3.MoveTowards(this.positionFrom, this.positionTo, 0.005f*Time.deltaTime);
-        SetPosition(Vector3.Lerp(this.positionFrom, this.positionTo, Mathf.Clamp(polledTime / cachedDuration, 0, 1)));
+
     }
 
 
@@ -91,27 +94,23 @@ public class PatrolAction : FSMAction
 
         this.length = this.finishEvent.Count;
 
-
+        //Chooses a random transition to another state
         random = this.rand.Next(0, length);
 
-
+        //Returns the next state to go to
         if (!string.IsNullOrEmpty(this.finishEvent[random]))
             GetOwner().SendEvent(this.finishEvent[random]);
 
-        //SetPosition(this.positionFrom + this.positionToW);
-        SetPosition(Vector3.Lerp(this.positionFrom, this.positionTo, Mathf.Clamp(polledTime / cachedDuration, 0, 2)));
+        SetPosition(Vector3.Lerp(this.positionFrom, this.positionTo, Mathf.Clamp(polledTime / cachedDuration, 0, 1)));
         this.polledTime = 0;
-        this.journeyLength = Vector3.Distance(this.positionFrom, this.positionTo);
+
 
         duration = cachedDuration;
 
 
     }
-
-
     private void SetPosition(Vector3 position)
     {
-        this.transform.position = position;
+        GameObject.Find("Boss").transform.position = position;
     }
-
 }
