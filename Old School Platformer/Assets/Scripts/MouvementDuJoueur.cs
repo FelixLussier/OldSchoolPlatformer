@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class MouvementDuJoueur : Gravity
 {
@@ -39,9 +40,13 @@ public class MouvementDuJoueur : Gravity
     public Transform topCheck;
     private bool wasTop = false;
 
+    public static float healthAmount;
+
 
     void Start()
     {
+        healthAmount = 1;
+
         m_vitesse = 3f;
         forceDeSaut = 10f;
         myRB = this.GetComponent<Rigidbody2D>();
@@ -59,6 +64,15 @@ public class MouvementDuJoueur : Gravity
 
     private void Update()
     {
+
+        if(healthAmount <= 0)
+        {
+            PlayerPrefs.DeleteKey("PlayerPosX");
+            PlayerPrefs.DeleteKey("PlayerPosY");
+            PlayerPrefs.SetFloat("PlayerPosX", -7);
+            PlayerPrefs.SetFloat("PlayerPosY", -5);
+            SceneManager.LoadScene("MainScene");
+        }
 
         if (Input.GetKey(KeyCode.LeftArrow)) flipTime = true;
         if (Input.GetKey(KeyCode.RightArrow)) flipTime = true;
@@ -187,5 +201,13 @@ public class MouvementDuJoueur : Gravity
         Vector3 Scaler = this.transform.localScale;
         Scaler.x *= -1;
         transform.localScale = Scaler;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.gameObject.name.Equals("Bullet"))
+        {
+            healthAmount -= 0.1f;
+        }
     }
 }
