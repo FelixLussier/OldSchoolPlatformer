@@ -11,6 +11,7 @@ public class ChangeScene : MonoBehaviour
         {
             PlayerPrefs.DeleteKey("PlayerPosX");
             PlayerPrefs.DeleteKey("PlayerPosY");
+            PlayerPrefs.DeleteKey("Checkpoint");
             PlayerPrefs.SetFloat("PlayerPosX", -7);
             PlayerPrefs.SetFloat("PlayerPosY", -5);
             SceneManager.LoadScene("MainScene");

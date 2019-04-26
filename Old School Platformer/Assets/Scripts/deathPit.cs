@@ -5,14 +5,19 @@ using UnityEngine.SceneManagement;
 
 public class deathPit : MonoBehaviour
 {
-    GameObject canvas;
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        PlayerPrefs.DeleteKey("PlayerPosX");
-        PlayerPrefs.DeleteKey("PlayerPosY");
-        PlayerPrefs.SetFloat("PlayerPosX", -7);
-        PlayerPrefs.SetFloat("PlayerPosY", -5);
-        SceneManager.LoadScene("MainScene");
+        if (PlayerPrefs.GetInt("Checkpoint") == 1)
+        {
+            PlayerPrefs.SetFloat("PlayerPosX", 18);
+            PlayerPrefs.SetFloat("PlayerPosY", -3);
+            SceneManager.LoadScene("MainScene");
+        }
+        else
+        {
+            PlayerPrefs.SetFloat("PlayerPosX", -7);
+            PlayerPrefs.SetFloat("PlayerPosY", -5);
+            SceneManager.LoadScene("MainScene");
+        }
     }
 }
