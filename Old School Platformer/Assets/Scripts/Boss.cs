@@ -117,13 +117,13 @@ public class Boss : MonoBehaviour
 
         vecPos = GameObject.Find("Boss").transform.position;
         vecEnnemis = new Vector3(0.1f, 0, 0);
-        vecJump = new Vector3(0.1f, 0.5f, 0);
+        vecJump = new Vector3(0f, 0.15f, 0);
 
 
         moveTargetAction.init(this.transform, vecEnnemis, 2.0f, finishEventMoveTarget);
         retreatAction.init(this.transform, vecEnnemis, 0.5f, finishEventRetreat);
         runTargetAction.init(this.transform, new Vector3(0.3f, 0, 0), 1.0f,finishEventRun);
-        jumpAction.init(this.transform, vecJump, 4f, finishEventJump);
+        jumpAction.init(this.transform, vecJump, 2f, finishEventJump);
         
         standAction.init(1.0f, finishEventStand);
 
