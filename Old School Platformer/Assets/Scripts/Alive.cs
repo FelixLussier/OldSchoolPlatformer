@@ -30,6 +30,8 @@ public class Alive : Collision
 
     private void FixedUpdate()
     {
+        actualiseMouvement();
+
         if (!isAlive())
             die();
     }

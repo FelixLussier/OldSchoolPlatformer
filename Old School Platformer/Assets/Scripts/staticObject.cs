@@ -11,6 +11,9 @@ public class staticObject : Collision
             rigidbodyComp.isKinematic = true;
 
         GetComponent<BoxCollider2D>().isTrigger = true;
+
+        speed.x = 0.0F;
+        speed.y = 0.0F;
     }
 
     // Update is called once per frame

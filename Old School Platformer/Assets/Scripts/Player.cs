@@ -2,7 +2,7 @@
 
 public class Player : Alive
 {
-    Projectile proj;
+    GameObject proj;
 
     void Start()
     {
@@ -16,7 +16,9 @@ public class Player : Alive
 
         life = 1;
 
-        Projectile proj = Instantiate(Resources.Load("proj")) as Projectile;
+        proj = Instantiate(Resources.Load("proj"), new Vector3(0F,1.0F,0F), Quaternion.identity) as GameObject;
+
+
     }
     void Update()
     {
