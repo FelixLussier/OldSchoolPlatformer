@@ -6,19 +6,17 @@ public class Projectile : Alive
 
     void Start()
     {
+    }
+
+    void Awake()
+    {
         rigidbodyComp = GetComponent<Rigidbody2D>();
              rigidbodyComp.isKinematic = true;
 
         GetComponent<BoxCollider2D>().isTrigger = true;
 
-        Vector2 pos;
-            pos.x = 0;
-            pos.y = 0;
-
-        rigidbodyComp.position = pos;
-
         speed.x = 0.01F;
-        speed.y = 0.01F;
+        speed.y = 0.0F;
 
         canBeAttacked = false;
 

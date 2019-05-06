@@ -18,12 +18,12 @@ public class Collision : MonoBehaviour
     void Start()
     {
         rigidbodyComp = GetComponent<Rigidbody2D>();
-            rigidbodyComp.isKinematic = true;
+        rigidbodyComp.isKinematic = true;
 
         GetComponent<BoxCollider2D>().isTrigger = true;
 
-        speed.x = 0.01F;
-        speed.y = 0.01F;
+        speed.x = 0.0F;
+        speed.y = 0.0F;
 
         collLeft = false;
         collRight = false;
@@ -81,7 +81,7 @@ public class Collision : MonoBehaviour
         ignoreCollRight = value;
     }
 
-    public void actualiseMouvement()
+    virtual public void actualiseMouvement()
     {
         rigidbodyComp.position += speed; // Fait avancer l'object.
     }
@@ -371,20 +371,20 @@ public class Collision : MonoBehaviour
         return speed.y;
     }
 
-    public void setSpeed(Vector2 valeur)
+    virtual public void setSpeed(Vector2 valeur)
     {
         speed = valeur;
     }
-    public void setSpeed(float speedX, float speedY)
+    virtual public void setSpeed(float speedX, float speedY)
     {
         speed.x = speedX;
         speed.y = speedY;
     }
-    public void setSpeedX(float speedX)
+    virtual public void setSpeedX(float speedX)
     {
         speed.x = speedX;
     }
-    public void setSpeedY(float speedY)
+    virtual public void setSpeedY(float speedY)
     {
         speed.y = speedY;
     }

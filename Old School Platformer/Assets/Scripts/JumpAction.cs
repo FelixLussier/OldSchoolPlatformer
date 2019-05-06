@@ -18,8 +18,9 @@ public class JumpAction : FSMAction
     private System.Random rand = new System.Random();
     private int random;
 
-
-
+    public bool isGrounded;
+    public Transform groundCheck;
+    
 
 
     public JumpAction(FSMState owner) : base(owner)
@@ -35,7 +36,7 @@ public class JumpAction : FSMAction
         this.finishEvent = finishEventList;
         this.cachedDuration = duration;
         this.deplacement = deplacement;
-
+        
 
     }
 
@@ -51,8 +52,9 @@ public class JumpAction : FSMAction
 
     public override void OnUpdate()
     {
-        
 
+
+        
 
         polledTime += Time.deltaTime;
         duration -= Time.deltaTime;
@@ -67,15 +69,11 @@ public class JumpAction : FSMAction
 
         this.positionFrom = GameObject.Find("Boss").transform.position;
 
-        float forceDeSaut = 10f;
-        Vector2 jumpVelocity = myRB.velocity;
-           
-        jumpVelocity.y = forceDeSaut;
-        myRB.velocity = jumpVelocity;
+        this.positionTo = this.positionFrom + deplacement;
         
 
 
-        //SetPosition(Vector3.Lerp(this.positionFrom, this.positionTo, Mathf.Clamp(polledTime / cachedDuration, 0, 1)));
+        SetPosition(Vector3.Lerp(this.positionFrom, this.positionTo, Mathf.Clamp(polledTime / cachedDuration, 0, 1)));
 
 
     }
