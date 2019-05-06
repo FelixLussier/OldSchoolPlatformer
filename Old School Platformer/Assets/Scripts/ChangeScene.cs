@@ -20,6 +20,10 @@ public class ChangeScene : MonoBehaviour
         {
             SceneManager.LoadScene("MainScene");
         }
+        if(gameObject.name == "PortailBoss")
+        {
+            SceneManager.LoadScene("BossScene");
+        }
     }
 
 }
