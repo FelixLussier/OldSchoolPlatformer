@@ -61,7 +61,7 @@ public class RetreatAction : FSMAction
         }
 
         this.positionFrom = GameObject.Find("Boss").transform.position;
-        if (GameObject.Find("Boss").transform.position.x < GameObject.Find("AI").transform.position.x)
+        if (GameObject.Find("Boss").transform.position.x < GameObject.Find("Joueur").transform.position.x)
         {
             GameObject.Find("Boss").GetComponent<SpriteRenderer>().flipX = false;
             this.positionTo = this.positionFrom - deplacement;

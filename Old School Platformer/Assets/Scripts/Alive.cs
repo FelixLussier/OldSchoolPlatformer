@@ -14,7 +14,7 @@ public class Alive : Collision
 
     void Start()
     {
-        life = 1;
+        life = 10;
 
         rigidbodyComp = GetComponent<Rigidbody2D>();
         rigidbodyComp.isKinematic = true;

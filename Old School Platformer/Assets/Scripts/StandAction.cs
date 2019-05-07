@@ -41,6 +41,21 @@ public class StandAction : FSMAction
             Finish();
             return;
         }
+        GameObject prefab = Resources.Load<GameObject>("BossBullet");
+
+        if(GameObject.Find("Boss").GetComponent<SpriteRenderer>().flipX == true)
+        {
+            Vector3 bullet = new Vector3(0.3f, 0.3f, 0f);
+        }
+        else
+        {
+            Vector3 bullet = new Vector3(-0.3f, 0.3f, 0f);
+        }
+
+        
+
+        GameObject.Instantiate(prefab, GameObject.Find("Boss").transform.position+new Vector3(0,0.3f,0), Quaternion.identity);
+
         
     }
 
@@ -64,8 +79,9 @@ public class StandAction : FSMAction
             return;
         }
 
+        
 
-       
+
     }
 
 

@@ -44,6 +44,9 @@ public class MoveTargetAction : FSMAction
             Finish();
             return;
         }
+        GameObject prefab = Resources.Load<GameObject>("BossBullet");
+
+        GameObject.Instantiate(prefab, GameObject.Find("Boss").transform.position + new Vector3(0, 0.3f, 0), Quaternion.identity);
 
     }
 
@@ -62,7 +65,7 @@ public class MoveTargetAction : FSMAction
 
         this.positionFrom = GameObject.Find("Boss").transform.position;
         //this if/else finds out on which side the ennemis is
-        if (GameObject.Find("Boss").transform.position.x < GameObject.Find("AI").transform.position.x)
+        if (GameObject.Find("Boss").transform.position.x < GameObject.Find("Joueur").transform.position.x)
         {
             GameObject.Find("Boss").GetComponent<SpriteRenderer>().flipX = true;
             this.positionTo = this.positionFrom + deplacement;
@@ -75,7 +78,7 @@ public class MoveTargetAction : FSMAction
         
 
         //Makes sure the boss doesn't move in too close
-        if (GameObject.Find("Boss").transform.position.x - GameObject.Find("AI").transform.position.x > 2 || GameObject.Find("Boss").transform.position.x - GameObject.Find("AI").transform.position.x < -2)
+        if (GameObject.Find("Boss").transform.position.x - GameObject.Find("Joueur").transform.position.x > 2 || GameObject.Find("Boss").transform.position.x - GameObject.Find("Joueur").transform.position.x < -2)
         {
             SetPosition(Vector3.Lerp(this.positionFrom, this.positionTo, Mathf.Clamp(polledTime / cachedDuration, 0, 1)));
         }

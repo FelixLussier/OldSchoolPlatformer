@@ -6,6 +6,7 @@ public class Projectile : Alive
 
     void Start()
     {
+        Destroy(gameObject, 3);
     }
 
     void Awake()
@@ -15,7 +16,9 @@ public class Projectile : Alive
 
         GetComponent<BoxCollider2D>().isTrigger = true;
 
-        speed.x = 0.01F;
+        SetSpeed(GameObject.Find("Boss").GetComponent<SpriteRenderer>().flipX);
+
+        //speed.x = 0.1F;
         speed.y = 0.0F;
 
         canBeAttacked = false;
@@ -86,5 +89,17 @@ public class Projectile : Alive
     public void setCanBeAttacked(bool value)
     {
         canBeAttacked = value;
+    }
+    public void SetSpeed(bool value)
+    {
+        if(value == true)
+        {
+            speed.x = 0.3f;
+        }
+        else
+        {
+            speed.x = -0.3f;
+        }
+            
     }
 }
